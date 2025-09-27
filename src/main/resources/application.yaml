@@ -1,0 +1,34 @@
+server:
+  port: 5000
+spring:
+  application:
+    name: admin-client
+  boot:
+    admin:
+      client:
+        url: http://localhost:4444
+        instance:
+          prefer-ip: true
+management:
+  info:
+    env:
+      enabled: true # spring boot admin client
+  health:
+    kafka:
+      timeout: 3000ms
+  endpoints:
+    web:
+      exposure:
+        #        include: health,readiness,liveness
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+#      probes:
+#        enabled: true
+#      group:
+#        readiness:
+#          include: kafka
+#          status:
+#            up: UP
+#            down: DOWN
