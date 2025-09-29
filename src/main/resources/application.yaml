@@ -1,8 +1,18 @@
 server:
   port: 5000
+logging:
+  level:
+    root: INFO
+    io.opentelemetry.exporter.zipkin: DEBUG
+    io.micrometer.tracing: DEBUG
 spring:
   application:
     name: admin-client
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  sleuth:
+    enabled: false # Only needed if using old Spring Cloud Sleuth
   boot:
     admin:
       client:
@@ -10,6 +20,14 @@ spring:
         instance:
           prefer-ip: true
 management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0 # 1.0 - 100% , 0.5 - trace 50%  of traffic
+
+    observations:
+      annotations:
+        enabled: true # Enable micrometer observation for annotations like @Observed, @Timed, @Counted, @MeterTag and @NewSpan  #  https://docs.spring.io/spring-boot/reference/actuator/observability.html
   info:
     env:
       enabled: true # spring boot admin client

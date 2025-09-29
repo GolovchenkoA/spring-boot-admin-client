@@ -23,10 +23,18 @@ ext {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation 'de.codecentric:spring-boot-admin-starter-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+//    https://micrometer.io/docs/tracing
+//    https://docs.spring.io/spring-boot/reference/actuator/tracing.html
+    implementation platform('io.micrometer:micrometer-tracing-bom:latest.release')
+    implementation 'io.micrometer:micrometer-tracing'
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+    implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+
 }
 
 dependencyManagement {
